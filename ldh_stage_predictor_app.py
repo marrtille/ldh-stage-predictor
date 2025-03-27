@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import shap
 
 # ----------------- Load model and SHAP explainer -----------------
-model = joblib.load("D:/LDH_outputs/best_model.pkl")
+model = joblib.load("models/best_model.pkl")
 feature_names = ["LDHA", "LDHB", "LDHC", "LDHD"]
 explainer = shap.Explainer(model, feature_names=feature_names)
 
