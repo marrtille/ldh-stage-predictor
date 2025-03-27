@@ -1,8 +1,8 @@
-joblib
 streamlit
+joblib
 numpy
 pandas
-fpdf
 matplotlib
 shap
+fpdf
 scikit-learn
