@@ -61,6 +61,7 @@ page = st.sidebar.radio("Go to", [
 # ----------------- Pages -----------------
 if page == "Patient Data":
     st.title("👤 Patient Clinical History")
+    st.title("Made by Mariam Tutayeva and Aru Lesbek")
     st.session_state['name'] = st.text_input("Patient Name", value=st.session_state.get('name', ''))
     st.session_state['age'] = st.number_input("Age", 0, 120, value=st.session_state.get('age', 0))
     st.session_state['gender'] = st.selectbox("Gender", ["Female", "Male", "Other"], index=["Female", "Male", "Other"].index(st.session_state.get('gender', "Female")))
