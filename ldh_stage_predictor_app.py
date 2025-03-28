@@ -8,6 +8,11 @@ from datetime import datetime
 from fpdf import FPDF
 import matplotlib.pyplot as plt
 import shap
+import unicodedata
+
+def strip_unicode(text):
+    """Remove all non-latin1 characters."""
+    return unicodedata.normalize("NFKD", str(text)).encode("ascii", "ignore").decode("ascii")
 
 # ----------------- Load model and SHAP explainer -----------------
 model = joblib.load("models/best_model.pkl")
@@ -186,25 +191,26 @@ elif page == "Report Generator":
         pdf.set_text_color(51, 51, 51)
         pdf.cell(200, 10, txt="LDH Risk Assessment Report", ln=1, align='C')
         pdf.ln(10)
-        pdf.cell(200, 10, txt=f"Patient Name: {name}", ln=1)
-        pdf.cell(200, 10, txt=f"Age: {age}", ln=1)
-        pdf.cell(200, 10, txt=f"Gender: {gender}", ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"Patient Name: {name}"), ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"Age: {age}"), ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"Gender: {gender}"), ln=1)
         pdf.ln(5)
         pdf.cell(200, 10, txt=f"LDHA: {ldha} mU/mL", ln=1)
-        pdf.cell(200, 10, txt=f"LDHB: {ldhb} mU/mL", ln=1)
-        pdf.cell(200, 10, txt=f"LDHC: {ldhc} mU/mL", ln=1)
-        pdf.cell(200, 10, txt=f"LDHD: {ldhd} mU/mL", ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"LDHA: {ldha} mU/mL"), ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"LDHB: {ldhb} mU/mL"), ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"LDHC: {ldhc} mU/mL"), ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"LDHD: {ldhd} mU/mL"), ln=1)
         pdf.ln(5)
-        pdf.cell(200, 10, txt=f"LDHA Stage: {ldha_stage}", ln=1)
-        pdf.cell(200, 10, txt=f"Risk Assessment: {risk_label}", ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"LDHA Stage: {ldha_stage}"), ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"Risk Assessment: {risk_label}", ln=1)
         pdf.ln(5)
         pdf.ln(5)
         pdf.set_text_color(0, 0, 128)
         pdf.cell(200, 10, txt="SHAP Feature Importances:", ln=1)
         for row in st.session_state.get("shap_df", pd.DataFrame()).itertuples():
-            pdf.cell(200, 10, txt=f"{row.Feature}: {row._2:.3f}", ln=1)
+            pdf.cell(200, 10, txt=strip_unicode(f"{row.Feature}: {row._2:.3f}", ln=1)
         pdf.set_text_color(150, 0, 0)
-        pdf.multi_cell(0, 10, txt="Disclaimer: This report is not a clinical diagnosis. Always consult a medical professional.")
+        pdf.multi_cell(0, 10, txt=strip_unicode("Disclaimer: This report is not a clinical diagnosis. Always consult a medical professional.")
 
         filename = f"LDH_Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
         pdf.output(filename)
