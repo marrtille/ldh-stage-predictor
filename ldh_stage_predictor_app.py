@@ -211,7 +211,7 @@ elif page == "Report Generator":
             pdf.cell(200, 10, txt=strip_unicode(f"{row.Feature}: {row._2:.3f}"), ln=1)
                      
         pdf.set_text_color(150, 0, 0)
-        pdf.multi_cell(0, 10, txt=strip_unicode("Disclaimer: This report is not a clinical diagnosis. Always consult a medical professional.")
+        pdf.multi_cell(0, 10, txt=strip_unicode("Disclaimer: This report is not a clinical diagnosis. Always consult a medical professional."))
 
         filename = f"LDH_Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
         pdf.output(filename)
