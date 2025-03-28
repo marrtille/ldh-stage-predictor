@@ -202,13 +202,14 @@ elif page == "Report Generator":
         pdf.cell(200, 10, txt=strip_unicode(f"LDHD: {ldhd} mU/mL"), ln=1)
         pdf.ln(5)
         pdf.cell(200, 10, txt=strip_unicode(f"LDHA Stage: {ldha_stage}"), ln=1)
-        pdf.cell(200, 10, txt=strip_unicode(f"Risk Assessment: {risk_label}", ln=1)
+        pdf.cell(200, 10, txt=strip_unicode(f"Risk Assessment: {risk_label}"), ln=1)
         pdf.ln(5)
         pdf.ln(5)
         pdf.set_text_color(0, 0, 128)
         pdf.cell(200, 10, txt="SHAP Feature Importances:", ln=1)
         for row in st.session_state.get("shap_df", pd.DataFrame()).itertuples():
-            pdf.cell(200, 10, txt=strip_unicode(f"{row.Feature}: {row._2:.3f}", ln=1)
+            pdf.cell(200, 10, txt=strip_unicode(f"{row.Feature}: {row._2:.3f}"), ln=1)
+                     
         pdf.set_text_color(150, 0, 0)
         pdf.multi_cell(0, 10, txt=strip_unicode("Disclaimer: This report is not a clinical diagnosis. Always consult a medical professional.")
 
